@@ -1,0 +1,268 @@
+﻿<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Price Prediction</title>
+</head>
+
+
+<body>
+  <div style="color:offwhite">
+        <form action="{{ url_for('predict')}}" method="post">
+	<h1>Predictive analysis for Flight ticket fair</h1><br><br>
+
+
+            <h2><i>Journey date and time of the flight</i></h2><input id="first" name="journey_date" type="date" required="required">
+	    <br>
+	    <br>
+	    <h2><i>Departure time of the flight</i></h2><input id="second" name="Departure_time" type="time" required="required">
+	    <h2><i>Expected arrival time of the flight</i></h2><input id="third" name="Arrival_Time" type="time" required="required">
+	    <br>
+	    <br>
+	    <h2><i>Source location of the flight</i></h2>
+	    <select name="Source" id="fourth" required="required">
+                 <option value="Delhi">Delhi</option>
+                 <option value="Kolkata">Kolkata</option>
+                 <option value="Mumbai">Mumbai</option>
+                 <option value="Chennai">Chennai</option>
+            </select>
+	    <h2><i>Destination location of the flight</i></h2>
+	    <select name="Destination" id="fifth" required="required">
+                 <option value="Cochin">Cochin</option>
+                 <option value="Delhi">Delhi</option>
+                 <option value="New Delhi">New Delhi</option>
+                 <option value="Hyderabad">Hyderabad</option>
+                 <option value="Kolkata">Kolkata</option>
+            </select>
+	    <h2><i>Stopage of the flight</i></h2>
+	    <select name="stops" id="sixth" required="required">
+                 <option value="0">Non-Stop</option>
+                 <option value="1">1</option>
+                 <option value="2">2</option>
+                 <option value="3">3</option>
+                 <option value="4">4</option>
+            </select>
+	    <h2><i>Which Airline do you want to take?</i></h2>
+	    <select name="airline" id="seventh" required="required">
+                 <option value="Jet Airways">Jet Airways</option>
+                 <option value="IndiGo">IndiGo</option>
+                 <option value="Air India">Air India</option>
+                 <option value="Multiple carriers">Multiple carriers</option>
+                 <option value="SpiceJet">SpiceJet</option>
+                 <option value="Vistara">Vistara</option>
+                 <option value="Air Asia">Air Asia</option>
+                 <option value="GoAir">GoAir</option>
+                 <option value="Multiple carriers Premium economy">Multiple carriers Premium economy</option>
+                 <option value="Jet Airways Business">Jet Airways Business</option>
+                 <option value="Vistara Premium economy">Vistara Premium economy</option>
+                 <option value="Trujet">Trujet</option>
+            </select>
+	   
+	    
+		<br><br><button id="sub" type="submit ">Calculate the ticket price</button>	    
+        
+	</form>
+	<br>
+	<h1><button id="pred">{{ prediction_text }}</button></h1>
+	<br>
+	<br>	
+	<p>©2020 Nishchal Jinturkar</p>
+
+  </div>
+
+
+
+    <style>
+        body {
+            background-color: #FFFAF0;
+            text-align: center;
+       }
+    
+       box {
+            border-radius: 60px;
+            border-color: 45px;
+            border-style: solid;
+            font-family: cursive;
+            text-align: center;
+            font-size: medium;
+            position: absolute;
+            width: 700px;
+            bottom: 9%;
+            height: 850px;
+            right: 30%;
+            padding: 0px;
+            margin: 0px;
+            font-size: 14px;
+        }
+        
+	#pred {
+		background: #F08080;
+  		width: 30%;
+  		border: 0;
+  		margin: 25px 0 10px;
+  		box-sizing: border-box;
+  		font-size: 25px;
+		height: 35px;
+		text-align: center;
+		border-radius: 25px;
+	} 
+       
+       #pred {
+		background: #F08080;
+  		width: 30%;
+  		border: 0;
+  		margin: 25px 0 10px;
+  		box-sizing: border-box;
+  		font-size: 25px;
+		height: 35px;
+		text-align: center;
+		border-radius: 25px;
+	}
+
+       #sub {
+  		background: #F08080;
+  		width: 30%;
+  		border: 0;
+  		margin: 25px 10px 10px;
+  		box-sizing: border-box;
+  		font-size: 30px;
+		height: 50px;
+		text-align: center;
+		border-radius: 25px
+	}
+
+        
+          #sub:hover {
+                background-color: red;
+          }
+
+
+
+       #first {
+            	font-family: "Roboto", sans-serif;
+  		outline: 0;
+  		background: #f2f2f2;
+  		width: 15%;
+  		border: 0;
+  		margin: 0 0 10px;
+  		padding: 10px;
+  		box-sizing: border-box;
+ 		font-size: 20px;
+ 		height: 40px;
+ 		border-radius: 25px;
+
+        }
+       
+       #second {
+            	font-family: "Roboto", sans-serif;
+  		outline: 0;
+  		background: #f2f2f2;
+  		width: 15%;
+  		border: 0;
+  		margin: 0 0 10px;
+  		padding: 10px;
+  		box-sizing: border-box;
+ 		font-size: 20px;
+ 		height: 40px;
+ 		border-radius: 25px;
+
+        }
+
+      #third {
+            	font-family: "Roboto", sans-serif;
+  		outline: 0;
+  		background: #f2f2f2;
+  		width: 15%;
+  		border: 0;
+  		margin: 0 0 10px;
+  		padding: 10px;
+  		box-sizing: border-box;
+ 		font-size: 20px;
+ 		height: 40px;
+ 		border-radius: 25px;
+
+        }
+
+       #fourth {
+            	font-family: "Roboto", sans-serif;
+  		outline: 0;
+  		background: #f2f2f2;
+  		width: 15%;
+  		border: 0;
+  		margin: 0 0 10px;
+  		padding: 10px;
+  		box-sizing: border-box;
+ 		font-size: 20px;
+ 		height: 40px;
+ 		border-radius: 25px;
+
+        }
+
+
+       #fifth {
+            	font-family: "Roboto", sans-serif;
+  		outline: 0;
+  		background: #f2f2f2;
+  		width: 15%;
+  		border: 0;
+  		margin: 0 0 10px;
+  		padding: 10px;
+  		box-sizing: border-box;
+ 		font-size: 20px;
+ 		height: 45px;
+ 		border-radius: 25px;
+
+        }
+
+
+      #sixth {
+           	font-family: "Roboto", sans-serif;
+  		outline: 0;
+  		background: #f2f2f2;
+  		width: 20%;
+  		border: 0;
+  		margin: 0 0 10px;
+  		padding: 10px;
+  		box-sizing: border-box;
+ 		font-size: 20px;
+ 		height: 50px;
+ 		border-radius: 25px;
+
+        }
+	
+  	#seventh {
+           	font-family: "Roboto", sans-serif;
+  		outline: 0;
+  		background: #f2f2f2;
+  		width: 20%;
+  		border: 0;
+  		margin: 0 0 10px;
+  		padding: 10px;
+  		box-sizing: border-box;
+ 		font-size: 20px;
+ 		height: 50px;
+ 		border-radius: 25px;
+
+        }
+
+
+
+		
+    </style>
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
